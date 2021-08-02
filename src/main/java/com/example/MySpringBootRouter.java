@@ -6,6 +6,30 @@ import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.Processor;
 import org.apache.camel.Exchange;
 
+class DTO {
+
+    private String message;
+
+    private String internalCode;
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getInternalCode() {
+		return internalCode;
+	}
+
+	public void setInternalCode(String internalCode) {
+		this.internalCode = internalCode;
+	}
+
+}
+
 /**
  * A simple Camel route that triggers from a timer and calls a bean and prints to system out.
  * <p/>
@@ -22,29 +46,36 @@ public class MySpringBootRouter extends RouteBuilder {
         	.bindingMode(RestBindingMode.auto);
 
         rest("/api")
-        	.post("/customer")
+        	//.consumes("application/json")
+        	//.produces("application/json")
+        	.get("/customer")
         	//.type()
         	.route()
         	.log("The body is ${body}!!")
-        	.transform().simple("The name in body is ${body}")
-        	.endRest()
+        	.transform().simple("RESPUESTA DE PRUEBA")
+        	.log("${body}")
+        	.endRest();
         	
-        	.put("/customer")
-        	//.type()
-        	.route()
-        	.log("The body is ${body}!!")
-//        	.process(new Processor() {
+//        	.put("/customer")
+//        		.route()
+//        		//.type()
+//        		//.outType(DTO.class)
+//        		.to("direct:put");
+//        
+//        from("direct:put")
+//        	.log("The body is ${body}!!")
+//	    	.to("https://run.mocky.io/v3/3334df41-5550-4527-8a2a-fb682dae4f8f?bridgeEndpoint=true&throwExceptionOnFailure=false")
+//	    	.process(new Processor() {
 //	            @Override
 //	            public void process(Exchange exchange) throws Exception {
 //	                BeanDatos beanDatos = exchange.getMessage().getBody(BeanDatos.class);
-//	                beanDatos.setEdad("15");
+//	                System.out.println(beanDatos);
 //	                exchange.getMessage().setBody(beanDatos);
 //	            }
-//        	})
-        	.to("https://run.mocky.io/v3/3334df41-5550-4527-8a2a-fb682dae4f8f?bridgeEndpoint=true&throwExceptionOnFailure=false")
-        	.to("stream:out")
-        	//.log("${body}")
-        	.endRest();
+//	    	})
+//	    	//.transform().simple("${body}")
+//	    	//.to("stream:out")
+//	    	.log("${body}");
 
 //        from("timer:hello?period={{timer.period}}").routeId("hello")
 //            .transform().method("myBean", "saySomething")

@@ -11,28 +11,24 @@ import org.springframework.stereotype.Component;
 @Component("beanDatos")
 public class BeanDatos {
 
-    private String name;
+    private String message;
 
-    private String edad;
+    private String internalCode;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public void setEdad(String edad) {
-        this.edad = edad;
-    }
+	public String getInternalCode() {
+		return internalCode;
+	}
 
-    public String getEdad() {
-        return this.edad;
-    }
-    
-    public String saludo() {
-        return "Hola " +  this.getName() + " Edad " + this.getEdad();
-    }
+	public void setInternalCode(String internalCode) {
+		this.internalCode = internalCode;
+	}
 
 }
